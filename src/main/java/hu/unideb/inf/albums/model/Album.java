@@ -17,7 +17,7 @@ public class Album implements Serializable {
     private Long id;
     private String artist;
     private String title;
-    private String release;
+    private String releaseDate;
     private String genre;   //műfaj
     private String rating;
 }
