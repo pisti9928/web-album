@@ -50,4 +50,21 @@ public class AlbumController {
         albumService.deleteAlbum(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/")
+    public String home(){
+        return ("<h1>Üdvözöljük</h1>");
+    }
+
+    @GetMapping("/user")
+    public String user(){
+        return ("<h1>Üdvözöljük, felhasználóként lépett be!</h1>");
+    }
+
+
+    @GetMapping("/admin")
+    public String admin(){
+        return ("<h1>Üdvözöljük, adminként lépett be!</h1>");
+    }
+
 }
