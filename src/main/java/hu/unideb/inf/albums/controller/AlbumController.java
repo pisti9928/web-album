@@ -5,9 +5,9 @@ import hu.unideb.inf.albums.model.Album;
 import hu.unideb.inf.albums.service.AlbumService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -32,39 +32,25 @@ public class AlbumController {
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('admin')")
     @PostMapping("/add")
     public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
         Album newAlbum = albumService.addAlbum(album);
         return new ResponseEntity<>(newAlbum, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('admin')")
     @PutMapping("/update")
     public ResponseEntity<Album> updateAlbum(@RequestBody Album album) {
         Album updatedAlbum = albumService.updateAlbum(album);
         return new ResponseEntity<>(updatedAlbum, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('admin')")
     @Transactional
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable("id") Long id) {
         albumService.deleteAlbum(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/")
-    public String home(){
-        return ("<h1>Üdvözöljük</h1>");
-    }
-
-    @GetMapping("/user")
-    public String user(){
-        return ("<h1>Üdvözöljük, felhasználóként lépett be!</h1>");
-    }
-
-
-    @GetMapping("/admin")
-    public String admin(){
-        return ("<h1>Üdvözöljük, adminként lépett be!</h1>");
-    }
-
 }
